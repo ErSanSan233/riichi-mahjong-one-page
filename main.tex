@@ -1,0 +1,204 @@
+\documentclass[a4paper,12pt,UTF8]{ctexart}
+\usepackage{tikz}
+\usetikzlibrary{shapes.misc,arrows.meta,fit,positioning,backgrounds}
+\usepackage[margin=0.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fontspec}
+
+\newfontfamily\mj[Scale=1.2]{Riichi-Mahjong}
+
+\begin{document}
+
+% \[
+%     \left.\begin{aligned}
+%         \text{老头牌：{\mj 1s 9s 1p 9p 1m 9m}}\\
+%         \left.
+%         \begin{aligned}
+%             \text{风牌：{\mj 1z 2z 3z 4z}}\\
+%             \text{三元牌：{\mj 5z 6z 7z}}
+%         \end{aligned}\right\} \text{字牌}
+%     \end{aligned}\right\} \text{幺九牌（幺）}
+% \]
+
+% 绿牌：{\mj 2s 3s 4s 6s 8s 6z}
+
+% * 门清限定
+
+\begin{tikzpicture}[scale=0.6, transform shape,
+    declare function={x=3.5; y=-1.1;},
+    yi/.style={
+        rounded rectangle,
+        draw,
+        minimum width=1.5cm,
+        minimum height=0.8cm,
+        font=\small
+    },
+    tag/.style={
+        rounded rectangle,
+        fill=gray!30,
+        minimum width=1.5cm,
+        minimum height=0.6cm,
+        font=\small
+    },
+    arr/.style={
+        ->,
+        >=Stealth,
+        font=\small,
+        to path={|- (\tikztotarget) \tikztonodes}
+    },
+    groupbox/.style={
+        fill=gray!10,
+        rounded corners=5pt,
+        inner sep=5pt
+    }
+]
+
+\node[tag] (t1) at (0, .3*y-y) {特殊顺子};
+    \node[yi] (ssts) at (x, 0) {三色同顺};
+    \node[yi] (*ssts) at (2*x, 0) {*三色同顺};
+    \draw[arr] (t1) to node[near end, above] {三色同数字} (ssts);
+    \draw[arr] (ssts) -- node[above] {门清} (*ssts);
+
+    \node[yi] (yqtg) at (x, -y) {一气通贯};
+    \node[yi] (*yqtg) at (2*x, -y) {*一气通贯};
+    \node[yi] (jlbd) at (7*x, -y) {*九莲宝灯};
+    \node[yi] (czjlbd) at (7*x, y) {*纯正九莲宝灯};
+    \draw[arr] (t1) to node[near end, above] {从一到九} (yqtg);
+    \draw[arr] (yqtg) -- node[above] {门清} (*yqtg);
+    \draw[arr] (*yqtg) -- node[near start, above] {1和9各有3张} (jlbd);
+    \draw[arr] (jlbd) -- node[right] {听9张} (czjlbd);
+
+    \node[tag] (t2) at (0.4*x, y) {*杯口};
+    \node[yi] (ybk) at (x, y) {*一杯口};
+    \node[yi] (ebk) at (3*x, y) {*二杯口};
+    \draw[arr] (t2) -- (ybk);
+    \draw[arr] (t1) to node[near end, below] {拐子龙} (t2);
+    \draw[arr] (ybk) -- node[above] {再来一对} (ebk);
+
+\node[tag] (t3) at (0,2.3*y) {特殊花色};
+    \node[yi] (lys) at (7*x, 2*y) {绿一色};
+    \draw[arr] (t3) to node[near end, above] {全是绿牌} (lys);
+
+    \node[yi] (hys) at (2*x, 3*y) {混一色};
+    \node[yi] (*hys) at (3*x, 3*y) {*混一色};
+    \node[yi] (qys) at (5*x, 4*y) {清一色};
+    \node[yi] (*qys) at (6*x, 4*y) {*清一色};
+    \draw[arr] (t3) to node[near end, above] {条饼万只占1种} (hys);
+    \draw[arr] (hys) -- node[above] {门清} (*hys);
+    \draw[arr] (*hys) to[to path={-| (\tikztotarget) \tikztonodes}] node[near start, above] {没有字牌} (*qys);
+    \draw[arr] (hys) to node[near end, above] {没有字牌} (qys);
+    \draw[arr] (qys) -- node[above] {门清} (*qys);
+
+\node[tag] (t4-) at (0,4.3*y) {特殊刻杠};
+\node[tag] (t4) at (0.5*x,5.3*y) {3组刻杠};
+    \draw[arr] (t4-) to (t4);
+
+    \node[yi] (ddh) at (2*x,5*y) {对对和};
+    \node[circle, fill=black, minimum size=4pt, inner sep=0pt] (x1) at (6*x,5*y) {};
+    \draw[arr] (t4) to node[near end, above] {再碰杠} (ddh);
+    \draw (ddh) -- node[above] {门清} (x1);
+    \node[yi] (4ak) at (7*x,5*y) {*四暗刻};
+    \node[yi] (sakdq) at (7*x,6*y) {*四暗刻单骑};
+    \draw[arr] (x1) -- node[above] {最后凑刻子} (4ak);
+    \draw[arr] (x1) to node[near end, above] {最后凑雀头} (sakdq);
+
+    \node[yi] (sstk) at (2*x,6*y) {三色同刻};
+    \draw[arr] (t4) to node[near end, above] {三色同数字} (sstk);
+
+    \node[yi] (3ak) at (2*x,7*y) {三暗刻};
+    \draw[arr] (t4) to node[near end, above] {全是暗的} (3ak);
+
+    \node[yi] (3gz) at (2*x,8*y) {三杠子};
+    \node[yi] (4gz) at (7*x,8*y) {四杠子};
+    \draw[arr] (t4) to node[near end, above] {全是杠} (3gz);
+    \draw[arr] (3gz) -- node[above] {再杠} (4gz);
+
+    \node[yi] (hlt) at (2*x,9*y) {混老头};
+    \node[yi] (qlt) at (7*x,9*y) {清老头};
+    \draw[arr] (t4) to node[near end, above] {全是幺} (hlt);
+    \draw[arr] (hlt) -- node[above] {没有字牌} (qlt);
+
+\node[tag] (t5) at (0,9.3*y) {幺};
+\node[tag] (t6) at (0.5*x,10*y) {老头};
+    \draw[arr] (t5) to (t6);
+    \draw[arr] (t6) to[to path={-| (\tikztotarget) \tikztonodes}] node[near start, above] {七对幺} (hlt);
+
+    \node[yi] (hqdyj) at (x, 11*y) {混全带幺九};
+    \draw[arr] (t5) to node[near end, above] {全带幺} (hqdyj);
+    \draw[arr] (hqdyj) to[to path={-| (\tikztotarget) \tikztonodes}] node[near start, above] {全是刻杠} (hlt);
+    \node[yi] (*hqdyj) at (2*x, 12*y) {*混全带幺九};
+    \draw[arr] (hqdyj) to node[near end, above] {门清} (*hqdyj);
+    \node[yi] (cqdyj) at (2*x, 13*y) {纯全带幺九};
+    \draw[arr] (hqdyj) to node[near end, above] {没有字牌} (cqdyj);
+    \node[yi] (*cqdyj) at (3*x, 13*y) {*纯全带幺九};
+    \draw[arr] (cqdyj) -- node[above] {门清} (*cqdyj);
+    \draw[arr] (*hqdyj) to[to path={-| (\tikztotarget) \tikztonodes}] node[near start, above] {没有字牌} (*cqdyj);
+
+    \node[tag] (t7) at (.5*x, 14*y) {三元};
+    \node[yi] (xsy) at (2*x, 14*y) {小三元};
+    \node[yi] (ysy) at (7*x, 14*y) {大三元};
+    \draw[arr] (t7) -- node[above] {{\mj 5z5z5z6z6z6z7z7z7z}凑8张} (xsy);
+    \draw[arr] (xsy) -- node[above] {凑齐} (ysy);
+    \draw[arr] (t5) to (t7);
+
+    \node[tag] (t8) at (.5*x, 15*y) {四喜（风）};
+    \node[yi] (xsx) at (7*x, 15*y) {小四喜};
+    \node[yi] (dsx) at (7*x, 17*y) {大四喜};
+    \draw[arr] (t8) -- node[above] {{\mj 1z1z1z2z2z2z3z3z3z4z4z4z}凑11张} (xsx);
+    \draw[arr] (xsx) -- node[right] {凑齐} (dsx);
+    \draw[arr] (t5) to (t8);
+
+    \node[yi] (dyj) at (x, 16*y) {断幺九};
+    \draw[arr] (t5) to node[near end, above] {没有幺} (dyj);
+
+    \node[yi] (y) at (x, 17*y) {役};
+    \draw[arr] (t5) to node[near end, above] {自风/场风/三元} (y);
+
+    \node[yi] (ljmg) at (4*x, 18*y) {流局满贯};
+    \draw[arr] (t5) to node[near end, above] {只打幺，不被吃碰杠，直到流局} (ljmg);
+
+\node[tag] (t9) at (0, 19*y) {*其他门清限定};
+    \node[yi] (ph) at (x, 19*y) {*平和};
+    \node[yi] (lz) at (x, 20*y) {*立直};
+    \node[yi] (qdz) at (2*x, 19*y) {*七对子};
+
+\node[tag] (t10) at (0, 22*y) {看运气};
+    \node[yi] (yf) at (x, 22*y) {*一发};
+    \draw[arr] (lz) -- node[right] {1巡内} (yf);
+    \node[yi] (qg) at (x, 24*y) {抢杠};
+    \node[yi] (mqqzmh) at (x, 23*y) {*门前清自摸和};
+    \node[tag] (t11) at (.3*x, 25.3*y) {最后1张};
+    \node[yi] (hdly) at (x, 25*y) {海底捞月};
+    \node[yi] (hdmy) at (x, 26*y) {河底摸鱼};
+    \draw[arr] (t11) to node[near end, above] {自摸} (hdly);
+    \draw[arr] (t11) to node[near end, below] {荣和} (hdmy);
+
+
+
+% \node[yi] (y2) at (x,-2*y) {1};
+\node[yi] (y3) at (2*x,-2*y) {2};
+\node[yi] (y4) at (3*x,-2*y) {3};
+\node[yi] (y5) at (4*x,-2*y) {满贯};
+\node[yi] (y6) at (5*x,-2*y) {5};
+\node[yi] (y7) at (6*x,-2*y) {6};
+\node[yi] (y8) at (7*x,-2*y) {役满};
+
+\begin{pgfonlayer}{background}
+\node[groupbox, fit=(yqtg)(ssts)(ybk)(hqdyj)(dyj)(y)(ph)(lz)(yf)(mqqzmh)(qg)(hdly)(hdmy)] (1f) {};
+\node[above=2pt of 1f, font=\small\bfseries] {1番} ;
+
+
+
+\end{pgfonlayer}
+
+% \node[groupbox, fit=(y1)(y2)(y3)] (g1) {};
+% \node[above=2pt of g1, font=\small\bfseries] {门清限定};
+
+% \node[groupbox, fit=(y4)(y5)(y6)(y7)] (g2) {};
+% \node[above=2pt of g2, font=\small\bfseries] {一般型};
+
+% \draw[arr] (g1) -- node[midway,above] {可叠加} (g2);
+\end{tikzpicture}
+
+\end{document}
