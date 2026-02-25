@@ -146,7 +146,7 @@
     \node[tag] (t8) at (.5*x, 15*y) {四喜（风）};
     \node[yi] (xsx) at (7*x, 15*y) {小四喜};
     \node[yi] (dsx) at (7*x, 17*y) {大四喜};
-    \draw[arr] (t8) -- node[above] {{\mj 1z1z1z2z2z2z3z3z3z4z4z4z}凑11张} (xsx);
+    \draw[arr] (t8) -- node[near end, above] {{\mj 1z1z1z2z2z2z3z3z3z4z4z4z}凑11张} (xsx);
     \draw[arr] (xsx) -- node[right] {凑齐} (dsx);
     \draw[arr] (t5) to (t8);
 
@@ -163,6 +163,7 @@
     \node[yi] (ph) at (x, 19*y) {$*$\,平和};
     \node[yi] (lz) at (x, 20*y) {$*$\,立直};
     \node[yi] (qdz) at (2*x, 19*y) {$*$\,七对子};
+    \draw[arr, to path={.. controls (4*x,18*y) and (4*x,10*y) .. (\tikztotarget) \tikztonodes}] (qdz) to node[near end, above ,sloped] {全是幺} (hlt);
 
 \node[tag] (t10) at (0, 22*y) {看运气};
     \node[yi] (yf) at (x, 22*y) {$*$\,一发};
