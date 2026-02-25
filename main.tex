@@ -30,6 +30,7 @@
     yi/.style={
         rounded rectangle,
         draw,
+        fill=white,
         minimum width=1.5cm,
         minimum height=0.8cm,
         font=\small
@@ -48,9 +49,9 @@
         to path={|- (\tikztotarget) \tikztonodes}
     },
     groupbox/.style={
-        fill=gray!10,
         rounded corners=5pt,
-        inner sep=5pt
+        inner sep=5pt,
+        minimum width=2cm
     }
 ]
 
@@ -137,9 +138,9 @@
 
     \node[tag] (t7) at (.5*x, 14*y) {三元};
     \node[yi] (xsy) at (2*x, 14*y) {小三元};
-    \node[yi] (ysy) at (7*x, 14*y) {大三元};
+    \node[yi] (dsy) at (7*x, 14*y) {大三元};
     \draw[arr] (t7) -- node[above] {{\mj 5z5z5z6z6z6z7z7z7z}凑8张} (xsy);
-    \draw[arr] (xsy) -- node[above] {凑齐} (ysy);
+    \draw[arr] (xsy) -- node[above] {凑齐} (dsy);
     \draw[arr] (t5) to (t7);
 
     \node[tag] (t8) at (.5*x, 15*y) {四喜（风）};
@@ -174,31 +175,32 @@
     \draw[arr] (t11) to node[near end, above] {自摸} (hdly);
     \draw[arr] (t11) to node[near end, below] {荣和} (hdmy);
 
+    \node[yi] (gsws) at (7*x, 22*y) {*国士无双};
+    \node[yi] (gswsssm) at (7*x, 24*y) {*国士无双十三面};
+    \draw[arr] (gsws) -- node[right] {听13张} (gswsssm);
+    \node[yi] (th) at (7*x, 25*y) {*天和};
+    \node[yi] (dh) at (7*x, 26*y) {*地和};
 
 
-% \node[yi] (y2) at (x,-2*y) {1};
-\node[yi] (y3) at (2*x,-2*y) {2};
-\node[yi] (y4) at (3*x,-2*y) {3};
-\node[yi] (y5) at (4*x,-2*y) {满贯};
-\node[yi] (y6) at (5*x,-2*y) {5};
-\node[yi] (y7) at (6*x,-2*y) {6};
-\node[yi] (y8) at (7*x,-2*y) {役满};
+\node[font=\small\bfseries] (1f) at (x, -2*y) {1番} ;
+\node[font=\small\bfseries] (2f) at (2*x, -2*y) {2番} ;
+\node[font=\small\bfseries] (3f) at (3*x, -2*y) {3番} ;
+\node[font=\small\bfseries] (4f) at (4*x, -2*y) {满贯} ;
+\node[font=\small\bfseries] (5f) at (5*x, -2*y) {5番} ;
+\node[font=\small\bfseries] (6f) at (6*x, -2*y) {6番} ;
+\node[font=\small\bfseries] (7f) at (7*x, -2*y) {役满} ;
 
 \begin{pgfonlayer}{background}
-\node[groupbox, fit=(yqtg)(ssts)(ybk)(hqdyj)(dyj)(y)(ph)(lz)(yf)(mqqzmh)(qg)(hdly)(hdmy)] (1f) {};
-\node[above=2pt of 1f, font=\small\bfseries] {1番} ;
-
-
-
+% 6字及以上的胶囊没有纳入，因为会撑宽方块，影响美观。
+\node[groupbox, fit=(yqtg)(ssts)(ybk)(hqdyj)(dyj)(y)(ph)(lz)(yf)(qg)(hdly)(hdmy)(1f), fill=red!10] {};
+\node[groupbox, fit=(*yqtg)(*ssts)(hys)(ddh)(sstk)(3ak)(3gz)(hlt)(*hqdyj)(cqdyj)(xsy)(qdz)(2f), fill=orange!10] {};
+\node[groupbox, fit=(ebk)(*hys)(*cqdyj)(3f), fill=yellow!10] {};
+\node[groupbox, fit=(ljmg)(4f), fill=green!10] {};
+\node[groupbox, fit=(qys)(5f), fill=cyan!10] {};
+\node[groupbox, fit=(*qys)(6f), fill=blue!10] {};
+\node[groupbox, fit=(jlbd)(lys)(4ak)(sakdq)(4gz)(qlt)(dsy)(xsx)(dsx)(gsws)(th)(dh)(7f), fill=purple!10] {};
 \end{pgfonlayer}
 
-% \node[groupbox, fit=(y1)(y2)(y3)] (g1) {};
-% \node[above=2pt of g1, font=\small\bfseries] {门清限定};
-
-% \node[groupbox, fit=(y4)(y5)(y6)(y7)] (g2) {};
-% \node[above=2pt of g2, font=\small\bfseries] {一般型};
-
-% \draw[arr] (g1) -- node[midway,above] {可叠加} (g2);
 \end{tikzpicture}
 
 \end{document}
