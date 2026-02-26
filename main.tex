@@ -1,7 +1,7 @@
 \documentclass[a4paper,12pt,UTF8]{ctexart}
 \usepackage{tikz}
 \usetikzlibrary{shapes.misc,arrows.meta,fit,positioning,backgrounds}
-\usepackage[margin=2cm]{geometry}
+\usepackage[margin=1.5cm]{geometry}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{fontspec}
@@ -15,12 +15,13 @@
 \textbf{立直麻将役种速记卡}
 
 {\footnotesize \ttfamily
-v1.0.0\quad 版本日期：\today\\
-项目：https://github.com/ErSanSan233/riichi-mahjong-one-page\\
-字体：https://mahjongfont.pages.dev\\
+v1.0.1\quad 版本日期：\today\\
+本图由初学者整理，如发现问题，敬请反馈至GitHub仓库：github.com/ErSanSan233/riichi-mahjong-one-page\\~
 }
 \end{center}
+
 \vfill
+
 \begin{adjustbox}{center}
 \begin{tikzpicture}[scale=0.7, transform shape,
     declare function={x=3.5; y=-1.1;},
@@ -168,7 +169,7 @@ v1.0.0\quad 版本日期：\today\\
     \node[yi] (dyj) at (x, 16*y+y) {断幺九};
     \draw[arr] (t5) to node[near end, above] {没有幺} (dyj);
 
-    \node[yi] (y) at (x, 17*y+y) {役};
+    \node[yi] (y) at (x, 17*y+y) {役牌};
     \draw[arr] (t5) to node[near end, above] {自风/场风/三元} (y);
 
     \node[yi] (ljmg) at (4*x, 14*y) {流局满贯};
@@ -184,12 +185,16 @@ v1.0.0\quad 版本日期：\today\\
     \node[yi] (yf) at (x, 22*y) {$*$\,一发};
     \draw[arr] (lz) -- node[right] {1巡内} (yf);
     \node[yi] (qg) at (x, 24*y) {抢杠};
+    \node[yi] (lskh) at (x, 25*y) {岭上开花};
     \node[yi] (mqqzmh) at (x, 23*y) {$*$\,门前清自摸和};
-    \node[tag] (t11) at (.3*x, 25.3*y) {和最后1张};
-    \node[yi] (hdly) at (x, 25*y) {海底捞月};
-    \node[yi] (hdmy) at (x, 26*y) {河底摸鱼};
+    \node[tag] (t11) at (.3*x, 26.3*y) {和最后1张};
+    \node[yi] (hdly) at (x, 26*y) {海底捞月};
+    \node[yi] (hdmy) at (x, 27*y) {河底摸鱼};
     \draw[arr] (t11) to node[near end, above] {自摸} (hdly);
     \draw[arr] (t11) to node[near end, below] {荣和} (hdmy);
+
+    \node[yi] (llz) at (2*x, 22*y) {$*$\,两立直};
+    \draw[arr] (lz) to[to path={-| (\tikztotarget) \tikztonodes}] node[near end, right] {第一次舍牌} (llz);
 
     \node[yi] (gsws) at (7*x, 22*y) {$*$\,国士无双};
     \node[yi] (gswsssm) at (7*x, 24*y) {$*$\,国士无双十三面};
@@ -212,7 +217,7 @@ v1.0.0\quad 版本日期：\today\\
 \begin{pgfonlayer}{background}
 % 6字及以上的胶囊没有纳入，因为会撑宽方块，影响美观。
 \node[groupbox, fit=(yqtg)(ssts)(ybk)(hqdyj)(dyj)(y)(ph)(lz)(yf)(qg)(hdly)(hdmy)(1f), fill=red!10] {};
-\node[groupbox, fit=(*yqtg)(*ssts)(hys)(ddh)(sstk)(3ak)(3gz)(hlt)(*hqdyj)(cqdyj)(xsy)(qdz)(2f), fill=orange!10] {};
+\node[groupbox, fit=(*yqtg)(*ssts)(hys)(ddh)(sstk)(3ak)(3gz)(hlt)(*hqdyj)(cqdyj)(xsy)(qdz)(llz)(2f), fill=orange!10] {};
 \node[groupbox, fit=(ebk)(*hys)(*cqdyj)(3f), fill=yellow!10] {};
 \node[groupbox, fit=(ljmg)(4f), fill=green!10] {};
 \node[groupbox, fit=(qys)(5f), fill=cyan!10] {};
@@ -229,5 +234,11 @@ v1.0.0\quad 版本日期：\today\\
 
 \end{tikzpicture}
 \end{adjustbox}
-\vfill
+
+\begin{center}
+    \textcolor{gray}{
+    \scriptsize \ttfamily
+    基于：wiki.lingshangkaihua.com\quad 字体：mahjongfont.pages.dev}
+\end{center}
+
 \end{document}
