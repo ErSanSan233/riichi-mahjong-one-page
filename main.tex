@@ -15,8 +15,8 @@
 \textbf{立直麻将役种速记卡}
 
 {\footnotesize \ttfamily
-v1.0.1\quad 版本日期：\today\\
-本图由初学者整理，如发现问题，敬请反馈至GitHub仓库：github.com/ErSanSan233/riichi-mahjong-one-page\\~
+v1.0.2\quad 版本日期：\today\\
+本图由初学者整理。如发现问题，敬请反馈至GitHub仓库：github.com/ErSanSan233/riichi-mahjong-one-page\\~
 }
 \end{center}
 
@@ -70,14 +70,14 @@ v1.0.1\quad 版本日期：\today\\
 \node[tag] (t1) at (0, .3*y-y) {特殊顺子};
     \node[yi] (ssts) at (x, 0) {三色同顺};
     \node[yi] (*ssts) at (2*x, 0) {$*$\,三色同顺};
-    \draw[arr] (t1) to node[near end, above] {三色同数字} (ssts);
+    \draw[arr] (t1) to node[near end, above] {3色同数字} (ssts);
     \draw[arr] (ssts) -- node[above] {门清} (*ssts);
 
     \node[yi] (yqtg) at (x, -y) {一气通贯};
     \node[yi] (*yqtg) at (2*x, -y) {$*$\,一气通贯};
     \node[yi] (jlbd) at (7*x, -y) {$*$\,九莲宝灯};
     \node[yi] (czjlbd) at (7*x, y) {$*$\,纯正九莲宝灯};
-    \draw[arr] (t1) to node[near end, above] {从一到九} (yqtg);
+    \draw[arr] (t1) to node[near end, above] {从1到9} (yqtg);
     \draw[arr] (yqtg) -- node[above] {门清} (*yqtg);
     \draw[arr] (*yqtg) -- node[near start, above] {1和9各有3张} (jlbd);
     \draw[arr] (jlbd) -- node[right] {听9张} (czjlbd);
@@ -87,7 +87,7 @@ v1.0.1\quad 版本日期：\today\\
     \node[yi] (ebk) at (3*x, y) {$*$\,二杯口};
     \draw[arr] (t2) -- (ybk);
     \draw[arr] (t1) to node[near end, below] {拐子龙} (t2);
-    \draw[arr] (ybk) -- node[above] {再来一对} (ebk);
+    \draw[arr] (ybk) -- node[above] {再来1对} (ebk);
 
 \node[tag] (t3) at (0,2.3*y) {特殊花色};
     \node[yi] (lys) at (7*x, 2*y) {绿一色};
@@ -109,7 +109,7 @@ v1.0.1\quad 版本日期：\today\\
 
     \node[yi] (ddh) at (2*x,5*y) {对对和};
     \node[circle, fill=black, minimum size=4pt, inner sep=0pt] (x1) at (6*x,5*y) {};
-    \draw[arr] (t4) to node[near end, above] {再凑一组} (ddh);
+    \draw[arr] (t4) to node[near end, above] {再凑1组} (ddh);
     \draw (ddh) -- node[above] {门清} (x1);
     \node[yi] (4ak) at (7*x,5*y) {$*$\,四暗刻};
     \node[yi] (sakdq) at (7*x,6*y) {$*$\,四暗刻单骑};
@@ -117,7 +117,7 @@ v1.0.1\quad 版本日期：\today\\
     \draw[arr] (x1) to node[near end, below] {最后凑雀头} (sakdq);
 
     \node[yi] (sstk) at (2*x,6*y) {三色同刻};
-    \draw[arr] (t4) to node[near end, above] {三色同数字} (sstk);
+    \draw[arr] (t4) to node[near end, above] {3色同数字} (sstk);
 
     \node[yi] (3ak) at (2*x,7*y) {三暗刻};
     \draw[arr] (t4) to node[near end, above] {全是暗的} (3ak);
@@ -139,7 +139,7 @@ v1.0.1\quad 版本日期：\today\\
 \node[tag] (t5) at (0,9.3*y) {幺};
 \node[tag] (t6) at (0.5*x,10*y) {老头};
     \draw[arr] (t5) to (t6);
-    \draw[arr] (t6) to[to path={-| (\tikztotarget) \tikztonodes}] node[near start, above] {七对幺} (hlt);
+    \draw[arr] (t6) to[to path={-| (\tikztotarget) \tikztonodes}] node[near start, above] {7对幺} (hlt);
 
     \node[yi] (hqdyj) at (x, 11*y) {混全带幺九};
     \draw[arr] (t5) to node[near end, above] {全带幺} (hqdyj);
@@ -194,7 +194,7 @@ v1.0.1\quad 版本日期：\today\\
     \draw[arr] (t11) to node[near end, below] {荣和} (hdmy);
 
     \node[yi] (llz) at (2*x, 22*y) {$*$\,两立直};
-    \draw[arr] (lz) to[to path={-| (\tikztotarget) \tikztonodes}] node[near end, right] {第一次舍牌} (llz);
+    \draw[arr] (lz) to[to path={-| (\tikztotarget) \tikztonodes}] node[near end, right] {第1次舍牌} (llz);
 
     \node[yi] (gsws) at (7*x, 22*y) {$*$\,国士无双};
     \node[yi] (gswsssm) at (7*x, 24*y) {$*$\,国士无双十三面};
