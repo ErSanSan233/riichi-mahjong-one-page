@@ -1,31 +1,28 @@
 \documentclass[a4paper,12pt,UTF8]{ctexart}
 \usepackage{tikz}
 \usetikzlibrary{shapes.misc,arrows.meta,fit,positioning,backgrounds}
-\usepackage[margin=0.5cm]{geometry}
+\usepackage[margin=2cm]{geometry}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{fontspec}
+\usepackage{adjustbox}
 
 \newfontfamily\mj[Scale=1.2]{Riichi-Mahjong}
 
 \begin{document}
+\thispagestyle{empty}
+\begin{center}
+\textbf{立直麻将役种速记卡}
 
-% \[
-%     \left.\begin{aligned}
-%         \text{老头牌：{\mj 1s 9s 1p 9p 1m 9m}}\\
-%         \left.
-%         \begin{aligned}
-%             \text{风牌：{\mj 1z 2z 3z 4z}}\\
-%             \text{三元牌：{\mj 5z 6z 7z}}
-%         \end{aligned}\right\} \text{字牌}
-%     \end{aligned}\right\} \text{幺九牌（幺）}
-% \]
-
-% 绿牌：{\mj 2s 3s 4s 6s 8s 6z}
-
-% * 门清限定
-
-\begin{tikzpicture}[scale=0.65, transform shape,
+{\footnotesize \ttfamily
+v1.0.0\quad 版本日期：\today\\
+项目：https://github.com/ErSanSan233/riichi-mahjong-one-page\\
+字体：https://mahjongfont.pages.dev\\
+}
+\end{center}
+\vfill
+\begin{adjustbox}{center}
+\begin{tikzpicture}[scale=0.7, transform shape,
     declare function={x=3.5; y=-1.1;},
     yi/.style={
         rounded rectangle,
@@ -54,6 +51,20 @@
         minimum width=2cm
     }
 ]
+
+\node[groupbox, draw, fill=white, align=left] at (5*x, 18.5*y) {
+    $\begin{aligned}
+        &\text{幺九牌(幺)}\left\{\begin{aligned}
+            &\text{老头牌：{\mj 1s 9s 1p 9p 1m 9m}}\\
+            &\text{字牌}\left\{\begin{aligned}
+                &\text{风牌：{\mj 1z 2z 3z 4z}}\\
+                &\text{三元牌：{\mj 5z 6z 7z}}
+            \end{aligned}\right. 
+        \end{aligned}\right. \\
+        &\text{绿牌：{\mj 2s 3s 4s 6s 8s 6z}}\\
+        & * \text{：门清限定}
+    \end{aligned}$
+};
 
 \node[tag] (t1) at (0, .3*y-y) {特殊顺子};
     \node[yi] (ssts) at (x, 0) {三色同顺};
@@ -117,8 +128,12 @@
 
     \node[yi] (hlt) at (2*x,9*y) {混老头};
     \node[yi] (qlt) at (7*x,9*y) {清老头};
+    \node[yi] (zys) at (7*x,10*y) {字一色};
+    \node[circle, fill=black, minimum size=4pt, inner sep=0pt] (x2) at (6*x,9*y) {};
     \draw[arr] (t4) to node[near end, above] {全是幺} (hlt);
-    \draw[arr] (hlt) -- node[above] {没有字牌} (qlt);
+    \draw (hlt) -- node {} (x2);
+    \draw[arr] (x2) -- node[above] {没有字牌} (qlt);
+    \draw[arr] (x2) to node[near end, below] {全是字牌} (zys);
 
 \node[tag] (t5) at (0,9.3*y) {幺};
 \node[tag] (t6) at (0.5*x,10*y) {老头};
@@ -136,34 +151,34 @@
     \draw[arr] (cqdyj) -- node[above] {门清} (*cqdyj);
     \draw[arr] (*hqdyj) to[to path={-| (\tikztotarget) \tikztonodes}] node[near start, above] {没有字牌} (*cqdyj);
 
-    \node[tag] (t7) at (.5*x, 14*y) {三元};
-    \node[yi] (xsy) at (2*x, 14*y) {小三元};
-    \node[yi] (dsy) at (7*x, 14*y) {大三元};
+    \node[tag] (t7) at (.5*x, 14*y+y) {三元};
+    \node[yi] (xsy) at (2*x, 14*y+y) {小三元};
+    \node[yi] (dsy) at (7*x, 14*y+y) {大三元};
     \draw[arr] (t7) -- node[above] {{\mj 5z5z5z6z6z6z7z7z7z}凑8张} (xsy);
     \draw[arr] (xsy) -- node[above] {凑齐} (dsy);
     \draw[arr] (t5) to (t7);
 
-    \node[tag] (t8) at (.5*x, 15*y) {四喜（风）};
-    \node[yi] (xsx) at (7*x, 15*y) {小四喜};
-    \node[yi] (dsx) at (7*x, 17*y) {大四喜};
+    \node[tag] (t8) at (.5*x, 15*y+y) {四喜(风)};
+    \node[yi] (xsx) at (7*x, 15*y+y) {小四喜};
+    \node[yi] (dsx) at (7*x, 17*y+y) {大四喜};
     \draw[arr] (t8) -- node[near end, above] {{\mj 1z1z1z2z2z2z3z3z3z4z4z4z}凑11张} (xsx);
     \draw[arr] (xsx) -- node[right] {凑齐} (dsx);
     \draw[arr] (t5) to (t8);
 
-    \node[yi] (dyj) at (x, 16*y) {断幺九};
+    \node[yi] (dyj) at (x, 16*y+y) {断幺九};
     \draw[arr] (t5) to node[near end, above] {没有幺} (dyj);
 
-    \node[yi] (y) at (x, 17*y) {役};
+    \node[yi] (y) at (x, 17*y+y) {役};
     \draw[arr] (t5) to node[near end, above] {自风/场风/三元} (y);
 
-    \node[yi] (ljmg) at (4*x, 18*y) {流局满贯};
+    \node[yi] (ljmg) at (4*x, 14*y) {流局满贯};
     \draw[arr] (t5) to node[near end, above] {只打幺，不被吃碰杠，直到流局} (ljmg);
 
 \node[tag] (t9) at (0*x, 19*y) {$*$\,其他门清限定};
     \node[yi] (ph) at (x, 19*y) {$*$\,平和};
     \node[yi] (lz) at (x, 20*y) {$*$\,立直};
     \node[yi] (qdz) at (2*x, 19*y) {$*$\,七对子};
-    \draw[arr, to path={.. controls (4*x,18*y) and (4*x,10*y) .. (\tikztotarget) \tikztonodes}] (qdz) to node[near end, above ,sloped] {全是幺} (hlt);
+    \draw[arr, dashed, to path={.. controls (3.9*x,18*y) and (3.9*x,10*y) .. (\tikztotarget) \tikztonodes}] (qdz) to node[near end, above ,sloped] {全是幺} (hlt);
 
 \node[tag] (t10) at (0, 22*y) {看运气};
     \node[yi] (yf) at (x, 22*y) {$*$\,一发};
@@ -202,12 +217,17 @@
 \node[groupbox, fit=(ljmg)(4f), fill=green!10] {};
 \node[groupbox, fit=(qys)(5f), fill=cyan!10] {};
 \node[groupbox, fit=(*qys)(6f), fill=blue!10] {};
-\node[groupbox, fit=(jlbd)(lys)(4ak)(sakdq)(4gz)(qlt)(dsy)(xsx)(dsx)(gsws)(th)(dh)(7f), fill=purple!10] {};
+\node[groupbox, fit=(jlbd)(lys)(4ak)(sakdq)(4gz)(qlt)(dsy)(xsx)(dsx)(gsws)(th)(dh)(zys)(7f), fill=purple!10] {};
 
 \node[groupbox, draw = gray, rounded corners=10pt, dashed, fit=(t10)(t11)(yf)(mqqzmh)(gsws)(gswsssm)(qg)(hdly)(hdmy)(th)(dh)] {};
 \node[groupbox, draw = gray, rounded corners=10pt, dashed, fit=(t9)(ph)(lz)(qdz)] {};
+
+% \node[tag] (t13) at (0, 27*y) {不能和};
+
+
 \end{pgfonlayer}
 
 \end{tikzpicture}
-
+\end{adjustbox}
+\vfill
 \end{document}
