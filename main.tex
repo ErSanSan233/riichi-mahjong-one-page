@@ -1,11 +1,14 @@
 \documentclass[a4paper,12pt,UTF8]{ctexart}
 \usepackage{tikz}
 \usetikzlibrary{shapes.misc,arrows.meta,fit,positioning,backgrounds}
-\usepackage[margin=1.5cm]{geometry}
+\usepackage[margin=1cm]{geometry}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{fontspec}
-\usepackage{adjustbox}
+\usepackage[export]{adjustbox}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
 
 \newfontfamily\mj[Scale=1.2]{Riichi-Mahjong}
 
@@ -15,12 +18,10 @@
 \textbf{立直麻将役种速记卡}
 
 {\footnotesize \ttfamily
-v1.0.2\quad 版本日期：\today\\
+v1.0.3\quad 版本日期：\today\\
 本图由初学者整理。如发现问题，敬请反馈至GitHub仓库：github.com/ErSanSan233/riichi-mahjong-one-page\\~
 }
 \end{center}
-
-\vfill
 
 \begin{adjustbox}{center}
 \begin{tikzpicture}[scale=0.7, transform shape,
@@ -53,7 +54,8 @@ v1.0.2\quad 版本日期：\today\\
     }
 ]
 
-\node[groupbox, draw, fill=white, align=left] at (5*x, 18.5*y) {
+\node[groupbox, draw=magenta!80!black, 
+align=left, text=magenta!80!black] at (5*x, 19.7*y) {
     $\begin{aligned}
         &\text{幺九牌(幺)}\left\{\begin{aligned}
             &\text{老头牌：{\mj 1s 9s 1p 9p 1m 9m}}\\
@@ -63,7 +65,7 @@ v1.0.2\quad 版本日期：\today\\
             \end{aligned}\right. 
         \end{aligned}\right. \\
         &\text{绿牌：{\mj 2s 3s 4s 6s 8s 6z}}\\
-        & * \text{：门清限定}
+        &\text{带有} * \text{的役种为门清限定}
     \end{aligned}$
 };
 
@@ -152,56 +154,58 @@ v1.0.2\quad 版本日期：\today\\
     \draw[arr] (cqdyj) -- node[above] {门清} (*cqdyj);
     \draw[arr] (*hqdyj) to[to path={-| (\tikztotarget) \tikztonodes}] node[near start, above] {没有字牌} (*cqdyj);
 
-    \node[tag] (t7) at (.5*x, 14*y+y) {三元};
-    \node[yi] (xsy) at (2*x, 14*y+y) {小三元};
-    \node[yi] (dsy) at (7*x, 14*y+y) {大三元};
+    \node[tag] (t7) at (.5*x, 14*y+y+y) {三元};
+    \node[yi] (xsy) at (2*x, 14*y+y+y) {小三元};
+    \node[yi] (dsy) at (7*x, 14*y+y+y) {大三元};
     \draw[arr] (t7) -- node[above] {{\mj 5z5z5z6z6z6z7z7z7z}凑8张} (xsy);
-    \draw[arr] (xsy) -- node[above] {凑齐} (dsy);
+    \draw[arr] (xsy) -- node[near end, above] {凑齐} (dsy);
     \draw[arr] (t5) to (t7);
 
-    \node[tag] (t8) at (.5*x, 15*y+y) {四喜(风)};
-    \node[yi] (xsx) at (7*x, 15*y+y) {小四喜};
-    \node[yi] (dsx) at (7*x, 17*y+y) {大四喜};
+    \node[tag] (t8) at (.5*x, 15*y) {四喜(风)};
+    \node[yi] (xsx) at (7*x, 15*y) {小四喜};
+    \node[yi] (dsx) at (7*x, 13*y) {大四喜};
     \draw[arr] (t8) -- node[near end, above] {{\mj 1z1z1z2z2z2z3z3z3z4z4z4z}凑11张} (xsx);
     \draw[arr] (xsx) -- node[right] {凑齐} (dsx);
     \draw[arr] (t5) to (t8);
 
-    \node[yi] (dyj) at (x, 16*y+y) {断幺九};
+    \node[yi] (gsws) at (7*x, 17*y) {$*$\,国士无双};
+    \node[yi] (gswsssm) at (7*x, 19*y) {$*$\,国士无双十三面};
+    \draw[arr] (t5) to node[near end, above, xshift=6cm] {凑齐所有幺各1张再加其中任1张} (gsws);
+    \draw[arr] (gsws) -- node[right] {听13张} (gswsssm);
+
+    \node[yi] (dyj) at (x, 16*y+y+y) {断幺九};
     \draw[arr] (t5) to node[near end, above] {没有幺} (dyj);
 
-    \node[yi] (y) at (x, 17*y+y) {役牌};
+    \node[yi] (y) at (x, 17*y+y+y) {役牌};
     \draw[arr] (t5) to node[near end, above] {自风/场风/三元} (y);
 
     \node[yi] (ljmg) at (4*x, 14*y) {流局满贯};
     \draw[arr] (t5) to node[near end, above] {只打幺，不被吃碰杠，直到流局} (ljmg);
 
-\node[tag] (t9) at (0*x, 19*y) {$*$\,其他门清限定};
-    \node[yi] (ph) at (x, 19*y) {$*$\,平和};
-    \node[yi] (lz) at (x, 20*y) {$*$\,立直};
-    \node[yi] (qdz) at (2*x, 19*y) {$*$\,七对子};
-    \draw[arr, dashed, to path={.. controls (3.9*x,18*y) and (3.9*x,10*y) .. (\tikztotarget) \tikztonodes}] (qdz) to node[near end, above ,sloped] {全是幺} (hlt);
+\node[tag] (t9) at (0*x, 19*y+y) {$*$\,其他门清限定};
+    \node[yi] (ph) at (x, 19*y+y) {$*$\,平和};
+    \node[yi] (lz) at (x, 20*y+y) {$*$\,立直};
+    \node[yi] (qdz) at (2*x, 19*y+y) {$*$\,七对子};
+    \draw[arr, dashed, to path={.. controls (3.9*x,18*y+y) and (3.9*x,10*y) .. (\tikztotarget) \tikztonodes}] (qdz) to node[near end, above ,sloped] {全是幺} (hlt);
 
-\node[tag] (t10) at (0, 22*y) {看运气};
-    \node[yi] (yf) at (x, 22*y) {$*$\,一发};
+\node[tag] (t10) at (0, 22*y+y) {看运气};
+    \node[yi] (yf) at (x, 22*y+y) {$*$\,一发};
     \draw[arr] (lz) -- node[right] {1巡内} (yf);
-    \node[yi] (qg) at (x, 24*y) {抢杠};
-    \node[yi] (lskh) at (x, 25*y) {岭上开花};
-    \node[yi] (mqqzmh) at (x, 23*y) {$*$\,门前清自摸和};
-    \node[tag] (t11) at (.3*x, 26.3*y) {和最后1张};
-    \node[yi] (hdly) at (x, 26*y) {海底捞月};
-    \node[yi] (hdmy) at (x, 27*y) {河底摸鱼};
+    \node[yi] (qg) at (x, 24*y+y) {抢杠};
+    \node[yi] (lskh) at (x, 25*y+y) {岭上开花};
+    \node[yi] (mqqzmh) at (x, 23*y+y) {$*$\,门前清自摸和};
+    \node[tag] (t11) at (.3*x, 26.3*y+y) {和最后1张};
+    \node[yi] (hdly) at (x, 26*y+y) {海底捞月};
+    \node[yi] (hdmy) at (x, 27*y+y) {河底摸鱼};
     \draw[arr] (t11) to node[near end, above] {自摸} (hdly);
     \draw[arr] (t11) to node[near end, below] {荣和} (hdmy);
 
-    \node[yi] (llz) at (2*x, 22*y) {$*$\,两立直};
+    \node[yi] (llz) at (2*x, 22*y+y) {$*$\,两立直};
     \draw[arr] (lz) to[to path={-| (\tikztotarget) \tikztonodes}] node[near end, right] {第1次舍牌} (llz);
 
-    \node[yi] (gsws) at (7*x, 22*y) {$*$\,国士无双};
-    \node[yi] (gswsssm) at (7*x, 24*y) {$*$\,国士无双十三面};
-    \draw[arr] (gsws) -- node[right] {听13张} (gswsssm);
-    \node[yi] (th) at (7*x, 25*y) {$*$\,天和};
-    \node[yi] (dh) at (7*x, 26*y) {$*$\,地和};
-    \node[tag] (t12) at (6.3*x, 25.3*y) {和第1张};
+    \node[yi] (th) at (7*x, 23*y) {$*$\,天和};
+    \node[yi] (dh) at (7*x, 24*y) {$*$\,地和};
+    \node[tag] (t12) at (6.3*x, 23.3*y) {和第1张};
     \draw[arr] (t12) to node[near end, above] {庄家} (th);
     \draw[arr] (t12) to node[near end, below] {闲家} (dh);
 
@@ -214,31 +218,32 @@ v1.0.2\quad 版本日期：\today\\
 \node[font=\small\bfseries] (6f) at (6*x, -2*y) {6番} ;
 \node[font=\small\bfseries] (7f) at (7*x, -2*y) {役满} ;
 
-\begin{pgfonlayer}{background}
-% 6字及以上的胶囊没有纳入，因为会撑宽方块，影响美观。
+\begin{pgfonlayer}{background}% 6字及以上的胶囊没有纳入，因为会撑宽方块，影响美观。
 \node[groupbox, fit=(yqtg)(ssts)(ybk)(hqdyj)(dyj)(y)(ph)(lz)(yf)(qg)(hdly)(hdmy)(1f), fill=red!10] {};
 \node[groupbox, fit=(*yqtg)(*ssts)(hys)(ddh)(sstk)(3ak)(3gz)(hlt)(*hqdyj)(cqdyj)(xsy)(qdz)(llz)(2f), fill=orange!10] {};
 \node[groupbox, fit=(ebk)(*hys)(*cqdyj)(3f), fill=yellow!10] {};
 \node[groupbox, fit=(ljmg)(4f), fill=green!10] {};
 \node[groupbox, fit=(qys)(5f), fill=cyan!10] {};
 \node[groupbox, fit=(*qys)(6f), fill=blue!10] {};
-\node[groupbox, fit=(jlbd)(lys)(4ak)(sakdq)(4gz)(qlt)(dsy)(xsx)(dsx)(gsws)(th)(dh)(zys)(7f), fill=purple!10] {};
+\node[groupbox, fit=(jlbd)(lys)(4ak)(sakdq)(4gz)(qlt)(dsy)(xsx)(dsx)(gsws)(th)(dh)(zys)(7f), fill=violet!10] {};
 
-\node[groupbox, draw = gray, rounded corners=10pt, dashed, fit=(t10)(t11)(yf)(mqqzmh)(gsws)(gswsssm)(qg)(hdly)(hdmy)(th)(dh)] {};
+\node[groupbox, draw = gray, rounded corners=10pt, dashed, fit=(t10)(t11)(yf)(mqqzmh)(qg)(hdly)(hdmy)(th)(dh)] {};
 \node[groupbox, draw = gray, rounded corners=10pt, dashed, fit=(t9)(ph)(lz)(qdz)] {};
 
-% \node[tag] (t13) at (0, 27*y) {不能和};
-
-
 \end{pgfonlayer}
-
 \end{tikzpicture}
 \end{adjustbox}
 
 \begin{center}
     \textcolor{gray}{
     \scriptsize \ttfamily
-    基于：wiki.lingshangkaihua.com\quad 字体：mahjongfont.pages.dev}
+    基于：wiki.lingshangkaihua.com $\cdot$ 
+    字体：mahjongfont.pages.dev $\cdot$
+    \href{https://github.com/ErSanSan233/IIIA}
+    {\includegraphics[height=10pt, valign=c]{img/iiia-1.pdf}} $\cdot$ 
+    \href{https://www.bilibili.com/opus/1173752783218671623}
+    {\includegraphics[height=8pt, valign=c]{img/logo.pdf}}
+    }
 \end{center}
 
 \end{document}
